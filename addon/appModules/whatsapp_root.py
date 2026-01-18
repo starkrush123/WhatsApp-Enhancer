@@ -119,19 +119,44 @@ class AppModule(appModuleHandler.AppModule):
 			start_index = match.start()
 			end_index = match.end()
 			
-			# Keep if start of string or comma-separated list
 			prefix = full_text[:start_index].strip()
-			if not prefix or prefix.endswith(','):
+			
+			# Keep if start of string (just a number)
+			if not prefix:
 				return match.group(0)
 
-			# Remove if followed by Digit (Time) or Uppercase (Header like "Message")
+			# Keep if comma-separated list (likely multiple contacts/numbers)
+			if prefix.endswith(','):
+				return match.group(0)
+
+			# Keep if it looks like a label (e.g. "Number: +62...")
+			if prefix.endswith(':'):
+				return match.group(0)
+
+			# Smart Filter: Always remove if it contains "Mungkin" (Maybe) -> Unsaved contact header
+			if "mungkin" in prefix.lower():
+				return ""
+
 			suffix = full_text[end_index:].strip()
 			if not suffix:
+				return "" # Remove trailing numbers in headers
+
+			# Smart Filter: Remove if followed by URL
+			if suffix.lower().startswith("http"):
 				return ""
+
+			# Existing: Remove if followed by Digit (Time) or Uppercase (Header like "Message")
 			if suffix[0].isdigit() or suffix[0].isupper():
 				return ""
 			
-			# Keep otherwise (likely notification sentence)
+			# Smart Filter: Remove if the prefix looks like a Name (ends with Title Case/Upper word)
+			# e.g. "Devi Sri Utami +62..." -> Filter
+			# "Call me at +62..." -> Keep ("at" is lower)
+			words = prefix.split()
+			if words and words[-1][0].isupper():
+				return ""
+			
+			# Keep otherwise (likely notification sentence or meaningful text)
 			return match.group(0)
 
 		for item in sequence:
