@@ -33,7 +33,7 @@ It can span multiple lines."""),
 	# URL for the add-on documentation support
 	addon_url=None,
 	# URL for the add-on repository where the source code can be found
-	addon_sourceURL=None,
+	addon_sourceURL=https://github.com/starkrush123/WhatsApp-Enhancer,
 	# Documentation file name
 	addon_docFileName="readme.html",
 	# Minimum NVDA version supported (e.g. "2019.3.0", minor version is optional)

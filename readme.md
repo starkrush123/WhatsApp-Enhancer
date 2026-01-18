@@ -1,6 +1,6 @@
 # WhatsApp Desktop Enhancer
 
-**Version:** 1.0.4  
+**Version:** 1.0.5  
 **Author:** mrido1
 
 This add-on is a specialized accessibility bridge for the **modern WhatsApp Desktop application** (available from the Microsoft Store). It enhances navigation efficiency and fixes interaction issues caused by the application's underlying technology.
