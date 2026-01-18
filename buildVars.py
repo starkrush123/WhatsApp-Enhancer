@@ -23,7 +23,7 @@ addon_info = AddonInfo(
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	addon_description=_("""Accessibility enhancements for WhatsApp Desktop (WebView2)"""),
 	# version
-	addon_version="1.0.4",
+	addon_version="1.0.5",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""Changelog for the add-on version.
@@ -33,7 +33,7 @@ It can span multiple lines."""),
 	# URL for the add-on documentation support
 	addon_url=None,
 	# URL for the add-on repository where the source code can be found
-	addon_sourceURL=https://github.com/starkrush123/WhatsApp-Enhancer,
+	addon_sourceURL="https://github.com/starkrush123/WhatsApp-Enhancer",
 	# Documentation file name
 	addon_docFileName="readme.html",
 	# Minimum NVDA version supported (e.g. "2019.3.0", minor version is optional)
@@ -45,7 +45,7 @@ It can span multiple lines."""),
 	# Do not change unless you know what you are doing!
 	addon_updateChannel=None,
 	# Add-on license such as GPL 2
-	addon_license=None,
+	addon_license="GPL 2",
 	# URL for the license document the ad-on is licensed under
 	addon_licenseURL=None,
 )
