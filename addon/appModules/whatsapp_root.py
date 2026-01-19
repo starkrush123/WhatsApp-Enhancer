@@ -520,9 +520,10 @@ class AppModule(appModuleHandler.AppModule):
 		# WhatsApp Desktop (WebView2) works best in Focus Mode.
 		# Accidental enabling of Browse Mode breaks navigation.
 		# We intercept NVDA+Space and force Focus Mode if not already active.
-		if not self.treeInterceptor or not self.treeInterceptor.passThrough:
-			if self.treeInterceptor:
-				self.treeInterceptor.passThrough = True
+		focus_obj = api.getFocusObject()
+		if not focus_obj.treeInterceptor or not focus_obj.treeInterceptor.passThrough:
+			if focus_obj.treeInterceptor:
+				focus_obj.treeInterceptor.passThrough = True
 			ui.message(_("Browse Mode is disabled for WhatsApp to ensure best experience."))
 		else:
 			# If already in correct mode, just report it to reassure user
