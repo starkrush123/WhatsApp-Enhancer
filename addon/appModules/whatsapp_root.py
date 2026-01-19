@@ -36,7 +36,9 @@ class AppModule(appModuleHandler.AppModule):
 		super().__init__(*args, **kwargs)
 		
 		self._last_spoken_text = ""
+		self._last_spoken_lines = []
 		self._review_cursor = 0
+		self._review_line_index = 0
 		self._is_reviewing = False
 		self._original_speak = None
 		self._patch_speech()
@@ -225,6 +227,10 @@ class AppModule(appModuleHandler.AppModule):
 		if full_text.strip():
 			self._last_spoken_text = full_text
 			self._review_cursor = 0
+			# Split into lines of approx 100 chars for line navigation
+			import textwrap
+			self._last_spoken_lines = textwrap.wrap(full_text, 100) if full_text else []
+			self._review_line_index = 0
 
 	@script(
 		description=_("Review previous character of last spoken text"),
@@ -350,6 +356,48 @@ class AppModule(appModuleHandler.AppModule):
 				speech.speak([word])
 			else:
 				tones.beep(400, 50)
+		finally:
+			self._is_reviewing = False
+
+	@script(
+		description=_("Review previous line of last spoken text"),
+		gesture="kb:NVDA+upArrow"
+	)
+	def script_review_previous_line(self, gesture):
+		if not hasattr(self, '_last_spoken_lines') or not self._last_spoken_lines:
+			return
+
+		self._is_reviewing = True
+		try:
+			if self._review_line_index > 0:
+				self._review_line_index -= 1
+				line = self._last_spoken_lines[self._review_line_index]
+				speech.speak([line])
+			else:
+				tones.beep(100, 50)
+				line = self._last_spoken_lines[0]
+				speech.speak([line])
+		finally:
+			self._is_reviewing = False
+
+	@script(
+		description=_("Review next line of last spoken text"),
+		gesture="kb:NVDA+downArrow"
+	)
+	def script_review_next_line(self, gesture):
+		if not hasattr(self, '_last_spoken_lines') or not self._last_spoken_lines:
+			return
+
+		self._is_reviewing = True
+		try:
+			if self._review_line_index < len(self._last_spoken_lines) - 1:
+				self._review_line_index += 1
+				line = self._last_spoken_lines[self._review_line_index]
+				speech.speak([line])
+			else:
+				tones.beep(400, 50)
+				line = self._last_spoken_lines[-1]
+				speech.speak([line])
 		finally:
 			self._is_reviewing = False
 
