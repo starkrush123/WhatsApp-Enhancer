@@ -40,6 +40,8 @@ class AppModule(appModuleHandler.AppModule):
 		self._review_cursor = 0
 		self._review_line_index = 0
 		self._is_reviewing = False
+		self._original_speak = None
+		self._patch_speech()
 
 		try:
 			conf = config.conf["WhatsAppEnhancer"]
@@ -123,7 +125,74 @@ class AppModule(appModuleHandler.AppModule):
 		nextHandler()
 
 	def terminate(self):
+		self._unpatch_speech()
 		super().terminate()
+
+	def _patch_speech(self):
+		try:
+			self._original_speak = speech.speech.speak
+			speech.speech.speak = self._on_speak
+		except AttributeError:
+			self._original_speak = speech.speak
+			speech.speak = self._on_speak
+
+	def _unpatch_speech(self):
+		if self._original_speak:
+			try:
+				speech.speech.speak = self._original_speak
+			except AttributeError:
+				speech.speak = self._original_speak
+
+	def _on_speak(self, sequence, *args, **kwargs):
+		new_sequence = []
+		
+		# Time pattern: HH:MM or HH.MM, optionally followed by AM/PM
+		time_pattern = r'(\d{1,2}[:.]\d{2}(?:\s?[APap][Mm])?)'
+
+		for item in sequence:
+			read_usage_hints = config.conf["WhatsAppEnhancer"].get("read_usage_hints", True)
+			
+			if isinstance(item, str):
+				# Smart Hint Filtering (Language Agnostic - Safer)
+				# Hints usually appear AFTER the timestamp.
+				# Structure: [Content] [Time] [Status - optional] [Hint]
+				if not read_usage_hints:
+					# Find all timestamps
+					time_matches = list(re.finditer(time_pattern, item))
+					if time_matches:
+						# Use the LAST timestamp as the delimiter between Content and Metadata
+						last_time = time_matches[-1]
+						suffix_start = last_time.end()
+						prefix = item[:suffix_start]
+						suffix = item[suffix_start:]
+						
+						# Safer Heuristic: Check for specific navigation keywords in the suffix.
+						# We look for a combination of "Direction/Key" AND "Function/Menu".
+						
+						s_lower = suffix.lower()
+						has_arrow = "arrow" in s_lower or "panah" in s_lower
+						has_context = "option" in s_lower or "opsi" in s_lower or "context" in s_lower or "konteks" in s_lower or "menu" in s_lower
+						
+						if has_arrow and has_context:
+							# If both conditions met, it's definitely a navigation hint -> Remove it
+							item = prefix + "" 
+			
+			new_sequence.append(item)
+
+		if self._original_speak:
+			self._original_speak(new_sequence, *args, **kwargs)
+		
+		if self._is_reviewing:
+			return
+
+		text_list = [item for item in new_sequence if isinstance(item, str)]
+		full_text = " ".join(text_list)
+		
+		if full_text.strip():
+			self._last_spoken_text = full_text
+			self._last_spoken_lines = [line for line in text_list if line.strip()]
+			self._review_cursor = 0
+			self._review_line_index = 0
 
 	@script(
 		description=_("Review previous character of last spoken text"),
