@@ -156,8 +156,6 @@ class AppModule(appModuleHandler.AppModule):
 				return ""
 			
 			# Smart Filter: Remove if the prefix looks like a Name (ends with Title Case/Upper word)
-			# e.g. "Devi Sri Utami +62..." -> Filter
-			# "Call me at +62..." -> Keep ("at" is lower)
 			words = prefix.split()
 			if words and words[-1][0].isupper():
 				return ""
