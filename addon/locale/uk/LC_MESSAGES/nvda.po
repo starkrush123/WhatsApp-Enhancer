@@ -2,115 +2,149 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2026-02-16 20:09+0200\n"
-"PO-Revision-Date: 2026-02-17 09:55+0200\n"
+"POT-Creation-Date: 2026-05-02 20:59+0300\n"
+"PO-Revision-Date: 2026-05-02 21:07+0300\n"
 "Last-Translator: Volodymyr Pyrih <vp88.mobile@gmail.com>\n"
 "Language-Team: \n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 "X-Poedit-Basepath: .\n"
 
-#: addon\globalPlugins\whatsapp_connector.py:18
-#: addon\appModules\whatsapp_root.py:212
+#: addon\globalPlugins\whatsapp_connector.py:19
+#: addon\appModules\whatsapp_root.py:220
 msgid "WhatsApp Enhancer"
 msgstr "Покращувач WhatsApp"
 
-#: addon\globalPlugins\whatsapp_connector.py:23
-msgid "Filter phone numbers in chat headers"
-msgstr "Фільтрувати номери телефонів у заголовках чатів"
+#: addon\globalPlugins\whatsapp_connector.py:24
+msgid "Filter phone numbers in chat list"
+msgstr "Фільтрувати номери телефонів у списку чатів"
 
-#: addon\globalPlugins\whatsapp_connector.py:25
+#: addon\globalPlugins\whatsapp_connector.py:26
+msgid "Filter phone numbers in message list"
+msgstr "Фільтрувати номери телефонів у списку повідомлень"
+
+#: addon\globalPlugins\whatsapp_connector.py:28
 msgid "Read usage hints while navigating chat list"
 msgstr "Читати підказки щодо використання під час перегляду списку чатів"
 
-#: addon\globalPlugins\whatsapp_connector.py:27
+#: addon\globalPlugins\whatsapp_connector.py:30
 msgid "Disable browse mode lock (not recommended)"
 msgstr "Вимкнути блокування режиму огляду (не рекомендується)"
 
-#: addon\appModules\whatsapp_root.py:79 addon\appModules\whatsapp_root.py:172
+#: addon\appModules\whatsapp_root.py:87 addon\appModules\whatsapp_root.py:180
 msgid "Option"
 msgstr "Опція"
 
-#: addon\appModules\whatsapp_root.py:311
+#: addon\appModules\whatsapp_root.py:529
 msgid "Review previous character"
 msgstr "Переглянути попередній символ"
 
-#: addon\appModules\whatsapp_root.py:325
+#: addon\appModules\whatsapp_root.py:541
 msgid "Review next character"
 msgstr "Переглянути наступний символ"
 
-#: addon\appModules\whatsapp_root.py:337
+#: addon\appModules\whatsapp_root.py:553
 msgid "Review previous word"
 msgstr "Переглянути попереднє слово"
 
-#: addon\appModules\whatsapp_root.py:350
+#: addon\appModules\whatsapp_root.py:566
 msgid "Review next word"
 msgstr "Переглянути наступне слово"
 
-#: addon\appModules\whatsapp_root.py:364
+#: addon\appModules\whatsapp_root.py:580
 msgid "Review previous line"
 msgstr "Переглянути попередній рядок"
 
-#: addon\appModules\whatsapp_root.py:373
+#: addon\appModules\whatsapp_root.py:589
 msgid "Review next line"
 msgstr "Переглянути наступний рядок"
 
-#: addon\appModules\whatsapp_root.py:382
+#: addon\appModules\whatsapp_root.py:598
 msgid "Inspector"
 msgstr "Інспектор"
 
-#: addon\appModules\whatsapp_root.py:387
+#: addon\appModules\whatsapp_root.py:603
 #, python-brace-format
 msgid "L:{left}, T:{top}, W:{width}, H:{height}"
 msgstr "Л:{left}, В:{top}, Ш:{width}, В:{height}"
 
-#: addon\appModules\whatsapp_root.py:391
+#: addon\appModules\whatsapp_root.py:607
 msgid "No Loc"
 msgstr "Місцерозташування невідоме"
 
-#: addon\appModules\whatsapp_root.py:394
+#: addon\appModules\whatsapp_root.py:610
 #, python-brace-format
 msgid "Role: {role}, {loc_str}, Name: '{name}', ID: {auto_id}"
 msgstr "Роль: {role}, {loc_str}, Назва: “{name}”, ID: {auto_id}"
 
-#: addon\appModules\whatsapp_root.py:398
-msgid "Dedicated text window"
-msgstr "Показує текст в окремому діалозі"
+#: addon\appModules\whatsapp_root.py:614
+msgid "Show / read complete message"
+msgstr "Показати / прочитати повне повідомлення"
 
-#: addon\appModules\whatsapp_root.py:401
+#: addon\appModules\whatsapp_root.py:624 addon\appModules\whatsapp_root.py:632
+#: addon\appModules\whatsapp_root.py:644 addon\appModules\whatsapp_root.py:673
+#: addon\appModules\whatsapp_root.py:678
 msgid "Message Text"
 msgstr "Текст повідомлення"
 
-#: addon\appModules\whatsapp_root.py:404
+#: addon\appModules\whatsapp_root.py:675
+msgid "Text not found"
+msgstr "Текст не знайдено"
+
+#: addon\appModules\whatsapp_root.py:680
 msgid "Copy message"
 msgstr "Копіювати повідомлення"
 
-#: addon\appModules\whatsapp_root.py:409
+#: addon\appModules\whatsapp_root.py:692
 msgid "Copied"
 msgstr "Скопійовано"
 
-#: addon\appModules\whatsapp_root.py:412
+#: addon\appModules\whatsapp_root.py:696
 msgid "Context menu"
 msgstr "Контекстне меню"
 
-#: addon\appModules\whatsapp_root.py:439
+#: addon\appModules\whatsapp_root.py:727
 msgid "Play voice message"
 msgstr "Відтворити голосове повідомлення"
 
-#: addon\appModules\whatsapp_root.py:466
+#: addon\appModules\whatsapp_root.py:795
 msgid "Open call menu"
 msgstr "Відкрити меню викликів"
 
-#: addon\appModules\whatsapp_root.py:495
+#: addon\appModules\whatsapp_root.py:824
 msgid "Toggle browse mode"
 msgstr "Перемкнути режим огляду"
 
-#: addon\appModules\whatsapp_root.py:509
+#: addon\appModules\whatsapp_root.py:838
 msgid "Browse Mode is disabled for WhatsApp"
 msgstr "Режим огляду вимкнено для WhatsApp"
+
+#: addon\appModules\whatsapp_root.py:841
+msgid "Toggle phone number filtering in chat list"
+msgstr "Перемикає фільтрування телефонних номерів у списку чатів"
+
+#: addon\appModules\whatsapp_root.py:849
+msgid "Chat list: phone numbers hidden"
+msgstr "Список чатів: номери телефонів приховано"
+
+#: addon\appModules\whatsapp_root.py:851
+msgid "Chat list: phone numbers visible"
+msgstr "Список чатів: номери телефонів показано"
+
+#: addon\appModules\whatsapp_root.py:855
+msgid "Toggle phone number filtering in message list"
+msgstr "Перемикає фільтрування телефонних номерів у списку повідомлень"
+
+#: addon\appModules\whatsapp_root.py:863
+msgid "Message list: phone numbers hidden"
+msgstr "Список повідомлень: номери телефонів приховано"
+
+#: addon\appModules\whatsapp_root.py:865
+msgid "Message list: phone numbers visible"
+msgstr "Список повідомлень: номери телефонів показано"
 
 #: addon\appModules\wh_observers.py:42
 #, python-brace-format
@@ -133,14 +167,20 @@ msgstr "Покращення доступності для WhatsApp Desktop (Web
 #. Brief changelog for this version
 #. Translators: what's new content for the add-on version to be shown in the add-on store
 #: buildVars.py:29
-msgid ""
-"added virtual menu for call menu and settings dialog\n"
-"                   remove some old scripts\n"
-"                   change button detections methode."
-msgstr ""
-"додано віртуальне меню для меню виклику та діалога налаштувань  \n"
-"видалено деякі старі скрипти  \n"
-"змінено метод визначення кнопок."
+msgid "chat list and message list now have own phone numbering filtering options."
+msgstr "у списку чатів та списку повідомлень тепер є власні параметри фільтрації за номерами телефонів."
+
+#~ msgid "Dedicated text window"
+#~ msgstr "Показує текст в окремому діалозі"
+
+#~ msgid ""
+#~ "added virtual menu for call menu and settings dialog\n"
+#~ "                   remove some old scripts\n"
+#~ "                   change button detections methode."
+#~ msgstr ""
+#~ "додано віртуальне меню для меню виклику та діалога налаштувань  \n"
+#~ "видалено деякі старі скрипти  \n"
+#~ "змінено метод визначення кнопок."
 
 #~ msgid "Read title"
 #~ msgstr "Прочитати заголовок"
@@ -176,9 +216,6 @@ msgstr ""
 
 #~ msgid "added rusian translations."
 #~ msgstr "додано російський переклад."
-
-#~ msgid "Toggle phone number filtering in speech"
-#~ msgstr "Увімкнути/вимкнути фільтрування телефонних номерів у мовленні"
 
 #~ msgid "on"
 #~ msgstr "увімкнено"
