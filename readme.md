@@ -102,15 +102,17 @@ Group chats often become cluttered with unsaved phone numbers, making chat heade
 
 This add-on features an intelligent **filter** that strips phone numbers from object names in both **Speech and Braille**, resulting in a much cleaner interface.
 
+In the message list, only the sender's number is removed. Numbers that people type in a message are kept.
+
 *   **Configuration:** Configure chat-list and message-list filtering separately in the add-on settings. Both commands can also be assigned from NVDA's Input Gestures dialog.
 
 ### 4. Smart "Usage Hint" Silencing
 WhatsApp often appends repetitive instructions to every chat item (e.g., *"For more options, press left or right arrow..."*). Hearing this on every single chat is tedious and slows down your workflow.
 
-Our filter automatically identifies and **silences these hints**, leaving only the essential information: Chat Name, Message Preview, Time, and Status.
+Our filter can identify and **silence these hints**, leaving only the essential information: Chat Name, Message Preview, Time, and Status.
 
-*   **How it works:** The filter cleanly separates the actual content from the metadata, removing the instruction text while preserving important status updates like *"Read"*, *"Delivered"*, *"unread"*, or *"reactions"*.
-*   **Configuration:** This feature can be toggled via the "Read usage hints while navigating chat list" option in the settings panel.
+*   **How it works:** The filter removes a hint only from the end of the text, and only when it mentions the keyboard action, while preserving the message and status updates like *"Read"*, *"Delivered"*, *"unread"*, or *"reactions"*.
+*   **Configuration:** Hints are read by default. To silence them, turn off the "Read usage hints while navigating chat list" option in the settings panel.
 
 ### 5. Virtual Navigation for Inaccessible Menus
 Certain parts of the modern WhatsApp interface—such as Settings panels and dialog menus—are difficult to navigate when Browse Mode is disabled. We have transformed these areas into fast, responsive **virtual menus**.
