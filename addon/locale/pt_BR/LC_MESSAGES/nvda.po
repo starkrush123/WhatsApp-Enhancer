@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: whatsAppEnhancer\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2026-11-05 12:00-0300\n"
+"PO-Revision-Date: 2026-11-05 12:00-0300\n"
+"Last-Translator: Christian18062006\n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: addon\appModules\whatsapp_root.py
+msgid "WhatsApp Enhancer"
+msgstr "WhatsApp Enhancer"
+
+msgid "Option"
+msgstr "Opção"
+
+msgid "Review previous character"
+msgstr "Revisar o caractere anterior"
+
+msgid "Review next character"
+msgstr "Revisar o próximo caractere"
+
+msgid "Review previous word"
+msgstr "Revisar a palavra anterior"
+
+msgid "Review next word"
+msgstr "Revisar a próxima palavra"
+
+msgid "Review previous line"
+msgstr "Revisar a linha anterior"
+
+msgid "Review next line"
+msgstr "Revisar a próxima linha"
+
+msgid "No Loc"
+msgstr "Sem localização"
+
+msgid "Inspector"
+msgstr "Inspetor"
+
+msgid "Message Text"
+msgstr "Texto da mensagem"
+
+msgid "Show / read complete message"
+msgstr "Mostrar ou ler a mensagem completa"
+
+msgid "Copy message"
+msgstr "Copiar a mensagem"
+
+msgid "Context menu"
+msgstr "Menu de contexto"
+
+msgid "Play voice message"
+msgstr "Reproduzir a mensagem de voz"
+
+msgid "Browse Mode is disabled for WhatsApp"
+msgstr "O modo de navegação está desativado no WhatsApp"
+
+msgid "Toggle browse mode"
+msgstr "Alternar o modo de navegação"
+
+msgid "Toggle phone number filtering in chat list"
+msgstr "Alternar o filtro de números de telefone na lista de conversas"
+
+msgid "Toggle phone number filtering in message list"
+msgstr "Alternar o filtro de números de telefone na lista de mensagens"
+
+msgid "Copied"
+msgstr "Copiado"
+
+msgid "L:{left}, T:{top}, W:{width}, H:{height}"
+msgstr "E:{left}, T:{top}, L:{width}, A:{height}"
+
+msgid "Role: {role}, {loc_str}, Name: '{name}', ID: {auto_id}"
+msgstr "Função: {role}, {loc_str}, Nome: '{name}', ID: {auto_id}"
+
+msgid "Chat list: phone numbers hidden"
+msgstr "Lista de conversas: números de telefone ocultos"
+
+msgid "Chat list: phone numbers visible"
+msgstr "Lista de conversas: números de telefone visíveis"
+
+msgid "Message list: phone numbers hidden"
+msgstr "Lista de mensagens: números de telefone ocultos"
+
+msgid "Message list: phone numbers visible"
+msgstr "Lista de mensagens: números de telefone visíveis"
+
+msgid "Text not found"
+msgstr "Texto não encontrado"
+
+#: addon\globalPlugins\whatsapp_connector.py
+msgid "Filter phone numbers in chat list"
+msgstr "Filtrar números de telefone na lista de conversas"
+
+msgid "Filter phone numbers in message list"
+msgstr "Filtrar números de telefone na lista de mensagens"
+
+msgid "Read usage hints while navigating chat list"
+msgstr "Ler as dicas de uso ao navegar pela lista de conversas"
+
+msgid "Disable browse mode lock (not recommended)"
+msgstr "Desativar o bloqueio do modo de navegação (não recomendado)"
+
+#: buildVars.py
+msgid "WhatsApp Desktop Enhancer"
+msgstr "WhatsApp Desktop Enhancer"
+
+msgid "Accessibility enhancements for WhatsApp Desktop (WebView2)"
+msgstr "Melhorias de acessibilidade para o WhatsApp Desktop (WebView2)"
+
+msgid "bug fixes"
+msgstr "correções de erros"
