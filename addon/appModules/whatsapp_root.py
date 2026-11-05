@@ -13,22 +13,12 @@ from speech.extensions import filter_speechSequence
 
 addonHandler.initTranslation()
 
-_PHONE_RE = re.compile(r'\+\d[()\d\s\u202c-]{11,}')
 _CHAT_LIST_DUPLICATE_WINDOW = 0.25
 _CONFIG_SECTION = "WhatsAppEnhancer"
-_HINT_TRIGGER_RE = re.compile(
-	r"(arrow|panah|flecha|flèche|freccia|ok|Ok|стрелк|menu|konteks|context|contexto|contextuel|contestuale|Kontext|Bağlam)",
-	re.I
-)
-_HINT_STRIP_RE = re.compile(
-	r"(For more options|Untuk opsi|Para lebih|Para más|Pour plus|Per lebih|Per lebih banyak|Per lebih lanjut|"
-	r"Per più|Für weitere|Para mais|Daha fazla|Voor meer|Untuk mengakses|Untuk selengkapnya|Untuk bantuan|"
-	r"Untuk mendapatkan|Для получения|Để biết thêm|สำหรับตัวเลือก|その他のオプション|更多选项|अधिक विकल्पों|추가 옵션).*",
-	re.I
-)
 
 from .text_window import TextWindow
 from NVDAObjects.IAccessible.ia2Web import Ia2Web
+from .wh_text import PHONE_RE, is_usage_hint, sender_label_size, strip_sender_phone, strip_usage_hint
 from .wh_utils import collect_elements, find_element
 
 class HeaderMenuDialog(Ia2Web):
@@ -141,15 +131,6 @@ class AppModule(appModuleHandler.AppModule):
 	scriptCategory = _("WhatsApp Enhancer")
 
 	_TIMESTAMP_RE = re.compile(r'^\d{1,2}[:.]\d{2}(\s*[AaPp][Mm])?$')
-	_HINT_RE = re.compile(
-		r"(For more options|Untuk opsi|Para m|Pour plus|Per lebih|F\u00fcr weitere|"
-		r"Para mais|Daha fazla|Voor meer|Untuk mengakses|Untuk selengkapnya|"
-		r"\u0414\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f|"
-		r"\u0110\u1ec3 bi\u1ebft th\u00eam|\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a|"
-		r"\u305d\u306e\u4ed6|\u66f4\u591a|\ucd94 \uac00)",
-		re.I
-	)
-
 
 	def _is_ts(self, text):
 		return bool(self._TIMESTAMP_RE.match(text.strip()))
@@ -176,19 +157,22 @@ class AppModule(appModuleHandler.AppModule):
 		full_name = (getattr(obj, "name", "") or "").strip()
 		leaves = self._collect_leaf_texts(obj)
 		if leaves:
-			filtered = [t for t in leaves if not self._is_ts(t) and not self._HINT_RE.search(t)]
+			filtered = [t for t in leaves if not self._is_ts(t) and not is_usage_hint(t)]
 			if filtered:
-				if len(filtered) > 1 and (len(filtered[0]) < 40
+				label_size = sender_label_size(filtered, self._is_ts)
+				if label_size:
+					filtered = filtered[label_size:]
+				elif len(filtered) > 1 and (len(filtered[0]) < 40
 					and full_name.startswith(filtered[0])
 					and len(filtered[0]) < len(full_name) - 5):
 					filtered = filtered[1:]
 			if filtered:
 				result = "\r\n".join(filtered)
-				result = self._HINT_RE.sub("", result).strip()
+				result = strip_usage_hint(result).strip()
 				return result or None
 		if not full_name:
 			return None
-		cleaned = self._HINT_RE.sub("", full_name).strip()
+		cleaned = strip_usage_hint(full_name).strip()
 		cleaned = re.sub(r"\s*\d{1,2}[:.]\d{2}(\s*[AaPp][Mm])?\s*$", "", cleaned).strip()
 		sender = next(
 			(t for t in leaves
@@ -344,11 +328,6 @@ class AppModule(appModuleHandler.AppModule):
 			obj.columnNumber = None
 		except Exception:
 			pass
-		try:
-			if obj.name:
-				self._apply_phone_filter(obj)
-		except Exception:
-			pass
 
 	def _apply_phone_filter(self, obj):
 		name = obj.name
@@ -358,14 +337,16 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		in_message_list = self._has_message_list_ancestor(obj)
 		if in_message_list:
-			if self._read_bool("filter_phone_numbers_messages", True):
-				filtered = _PHONE_RE.sub('', name)
-				if filtered != name:
-					obj.name = re.sub(r'\s{2,}', ' ', filtered).strip()
+			if self._read_bool("filter_phone_numbers_messages", True) and PHONE_RE.search(name):
+				# Only containers have a sender label: a text object may be the message itself.
+				if getattr(obj, "childCount", 0):
+					filtered = strip_sender_phone(name, self._collect_leaf_texts(obj), self._is_ts)
+					if filtered != name:
+						obj.name = filtered
 		else:
 			if self._is_chat_list_item(obj):
 				if self._read_bool("filter_phone_numbers_chat", False):
-					filtered = _PHONE_RE.sub('', name)
+					filtered = PHONE_RE.sub('', name)
 					if filtered != name:
 						obj.name = re.sub(r'\s{2,}', ' ', filtered).strip()
 
@@ -373,6 +354,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def event_gainFocus(self, obj, nextHandler):
 		self._focus_in_chat_list_table = self._is_in_chat_list_table(obj)
+		# Runs here and not in event_NVDAObject_init: walking the tree creates objects,
+		# and each new object would run the filter again, freezing NVDA.
+		try:
+			self._apply_phone_filter(obj)
+		except Exception:
+			pass
 		try:
 			if not self.mainWindow or not self.mainWindow.windowHandle:
 				curr = obj
@@ -420,8 +407,7 @@ class AppModule(appModuleHandler.AppModule):
 		filter_hints = not self._read_bool("read_usage_hints", True)
 		for item in sequence:
 			if isinstance(item, str) and filter_hints:
-				if _HINT_TRIGGER_RE.search(item):
-					item = _HINT_STRIP_RE.sub("", item).strip()
+				item = strip_usage_hint(item)
 			new_sequence.append(item)
 		text_list = [item for item in new_sequence if isinstance(item, str)]
 		full_text = " ".join(text_list)
